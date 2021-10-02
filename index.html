@@ -13,18 +13,48 @@
 <body class="container">
     <h1>Deliveroo</h1>
     <form id="orderForm">
+
             <label for="name">Name</label>
             <input type="text" name="name" id="nameInput" required>
             
             <label for="email">Email</label>
             <input type="text" name="email" id="emailInput" required>
 
-            <label for="order">Order</label>
-            <input type="text" id="orderInput" required>
+            <label for="orderInput">Order</label>
 
-            <input type="submit" id="submitBtn">
-    </form>
+
+    <div class="form-group"> 
+        <label for="orderInput">Order</label>
+
+        <div>
+            <input type="checkbox" name="dish" id="dish1" value="1" checked>
+            <label for="exampleRadios1">
+              Pasta Carbonara
+            </label>
+        </div>
+
+        <div>
+            <input type="checkbox" name="dish" id="dish2" value="2">
+            <label for="exampleRadios2">
+              Scampies in creamsauce with tagliatteli
+            </label>
+        </div>
+
+        <div>
+            <input type="checkbox" name="dish" id="dish3" value="3">
+            <label for="exampleRadios3">
+              Sausage with applesauce and potatoes
+            </label>
+        </div>
+        
+        <input type="submit" id="submitBtn">
+ 
+    </div>
+
+</form>
+
     <div id="messages"></div>
+
 </body>
 
 </html>
