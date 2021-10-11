@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+#sectionList {
+    margin: 50px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pokemonArticle {
+    width: 150px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid rgb(226, 226, 226);
+}
+
+.pokemonFigure {
+    width: auto;
+    margin: 0;
+}
+
+.pokemonInfo h2 {
+    margin: 0;
+    text-align: center;
+}
+
+.pokemonTypes {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.pokemonTypes p {
+    width: 45%;
+    text-align: center;
+}
+
+.addToTeamButton button {
+    width: 100%;
+}
