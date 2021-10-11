@@ -2,11 +2,10 @@
 
 import Team from "../2/Team.js";
 
+let list = [];
 let pokemonDataList = [];
-let pokemonHTML = "";
+let team = new Team("PokeGo", "Sam Buseyne");
 
-
-fetchPokemon();
 
 function fetchPokemon() {
     fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
@@ -14,7 +13,8 @@ function fetchPokemon() {
             return response.json();
         })
         .then(data => {
-            data.results.forEach(e => {
+            list = data.results;
+            list.forEach(e => {
                 fetch(`${e.url}`)
                     .then(response => {
                         return response.json();
@@ -27,37 +27,77 @@ function fetchPokemon() {
 }
 
 window.onload = function () {
+
+    fetchPokemon();
     setTimeout(buildList, 3000);
 
     function buildList() {
-        pokemonDataList.forEach(e => {
-            pokemonHTML += `<article class="pokemonArticle">
-        <figure class="pokemonFigure">
-            <img src="${e.sprites.front_default}" alt="">
-        </figure>
-        <div class="pokemonInfo">
-            <h2>${e.name}</h2>
-            <div class="pokemonTypes">
-                <p>Type 1</p>
-                <p>Type 2</p>
+
+        let html = '';
+        pokemonDataList.sort(function(a,b){
+            return a.id - b.id;
+        });
+
+
+        for(let p of pokemonDataList){
+            html += `<article class="pokemonArticle">
+            <figure class="pokemonFigure">
+                <img src="${p.sprites.front_default}" alt="">
+            </figure>
+            <div class="pokemonInfo">
+                <h2>${p.name}</h2>
+                <div class="pokemonTypes">
+                    <p>Type 1</p>
+                    <p>Type 2</p>
+                </div>
             </div>
-        </div>
-        <div class="addToTeamButton">
-            <button>Add to team</button>
-        </div>
-    </article>`
+            <div class="addToTeamButton">
+            <a href="#" id="${p.id}" class="btn btn-primary ">Add to team</a>
+            </div>
+        </article>`
 
+        }
+        document.getElementById('sectionList').innerHTML = html;
+
+        document.querySelectorAll('.btn').forEach(item =>{
+            item.addEventListener('click', event => {
+                let id = event.target.id;
+
+                fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+                    .then(response => response.json())
+                    .then(data => {
+                        team.roster.push(data.results[id-1].name);
+                        team.describe();
+                    })
+                let p = pokemonDataList.find(ele => ele.id == id);
+
+                let message = team.addPokemon(p);
+                refreshTeam(message);
+            })
         })
-        document.getElementById('sectionList').innerHTML = pokemonHTML;
-
-
-
     }
 
     refreshTeam();
 }
 
-function refreshTeam() {
-    let team = new Team("PokeGo", "Sam Buseyne");
+function refreshTeam(m) {
+
     document.getElementById('team').innerHTML = team.describe();
+
+    if(m){
+        let messageBox = document.createElement('div');
+        messageBox.classList.add('message');
+        messageBox.setAttribute('role', 'alert');
+
+        if(m.type == 'SUCCES'){
+            messageBox.classList.add('message-succes');
+        }else{
+            messageBox.classList.add('message-danger');
+        }
+
+        messageBox.innerText = m.value;
+
+        document.getElementById('message').innerHTML = '';
+        document.getElementById('message').appendChild(messageBox);
+    }
 }
