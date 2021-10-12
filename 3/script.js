@@ -1,35 +1,34 @@
 "Use strict";
 
-let magicNumber = 0;
 
 window.onload = function () {
-    generateNumber();
+    async function getData(url){
+        let response = await fetch(url);
+        let data = await  response.json();
+        console.log(data);
+        document.getElementById("card-title").innerHTML = `${data.Title}`;
+        document.getElementById("card-text").innerHTML = `${data.Plot}`;
+        document.getElementById("Director").innerHTML = `${data.Director}`;
+        document.getElementById("Runtime").innerHTML = `${data.Runtime}`;
+        document.getElementById("Year").innerHTML = `${data.Year}`;
+        document.getElementById("image").innerHTML = `<img src="${data.Poster}" id="image" class="card-img" alt="...">`;
+        return data
 
 
-    document.getElementById("guess-button")
-    .addEventListener("click", function(event){
-        let message = "";
-        compareNumber(document.getElementById('input').value.then(
-            result => {document.getElementById('messages').innerText = result},
-            error => {document.getElementById('messages').innerText = error}
-        ))
+
+    }
+    document.getElementById("button").addEventListener("click", e => {
+        e.preventDefault();
+        let movieTitle = document.getElementById('inputTitle').value;
+        getData(`http://www.omdbapi.com/?t=${movieTitle}&apikey=3d9f5461&`)
     })
+
+    function counter(){
+        document.getElementById("counterButton").addEventListener('click', event => {
+            console.log("check")
+        })
+
+    }
+
 }
 
-
-function compareNumber(nr) {
-    return new Promise(function (resolve, reject) {
-        //compare nr with magicnumber
-
-        //if we geussed it right
-        resolve('You have guessed it! Good for you!');
-    })
-}
-
-function generateNumber() {
-    magicNumber = Math.floor(Math.random() * 21);
-    return
-}
-
-function addMessage(m, type){
-}
