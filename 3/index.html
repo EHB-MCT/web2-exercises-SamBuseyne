@@ -15,30 +15,12 @@
 <body class="container">
     <form id="searchform">
         <input type="text" class="form-control" id="inputTitle" placeholder="Avengers, Parasite,...">
+        <input type="text" class="form-control" id="inputYear" placeholder="2021,1998,1965,...">
         <button type="submit" class="btn btn-primary mb-2" id="button">Search</button>
     </form>
+    <p id="runtimeCounter">0 min</p>
     <hr>
-    <div class="card mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
-            <div class="col-md-4" id="image">
-                <img src="TBD"  class="card-img" alt="...">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 id="card-title">Card title</h5>
-                    <p id="card-text">This is a wider card with supporting text below as a natural lead-in to
-                        additional content. This content is a little bit longer.</p>
-                        <p id="Year"></p>
-                        <p id="Runtime"></p>
-                        <p id="Director"></p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <button id="counterButton"></button>
-    <div id="counterClock"></div>
+    <section id="filmList"></section>
 </body>
 
 </html>
